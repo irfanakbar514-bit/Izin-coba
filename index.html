@@ -746,124 +746,57 @@
             </div>
         </div>
     </div>
-    <script>
-    // 1. Biar tombol "Open Invitation" hidup lagi
+  <script>
+    // 1. FUNGSI UNTUK MENGUNCI SCROLL SAAT AWAL (Biar gak bocor)
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    // 2. FUNGSI TOMBOL BUKA UNDANGAN
     window.undangan = {
         guest: {
             open: function(btn) {
-                const welcome = document.getElementById('welcome');
-                const root = document.getElementById('root');
-                
-                // Musik Main
+                // Buka Gembok Scroll
+                document.documentElement.style.overflow = 'auto';
+                document.body.style.overflow = 'auto';
+                document.body.style.height = 'auto';
+
+                // Jalankan Musik
                 const audioPath = document.body.getAttribute('data-audio');
                 const audio = new Audio(audioPath);
                 audio.loop = true;
-                audio.play().catch(e => console.log("Musik aktif"));
+                audio.play().catch(e => console.log("Musik Jalan"));
 
-                // Efek Kertas (Confetti) kalau pelurunya ada
-                if (typeof confetti !== 'undefined') {
-                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
-                }
+                // Sembunyikan Amplop & Munculkan Isi
+                document.getElementById('welcome').style.display = 'none';
+                const root = document.getElementById('root');
+                root.style.display = 'block';
+                setTimeout(() => { root.style.opacity = '1'; }, 50);
 
-                // Layar Buka
-                if (welcome) welcome.style.display = 'none';
-                if (root) {
-                    root.classList.remove('opacity-0');
-                    root.style.opacity = '1';
-                }
+                // Jalankan Hujan Bunga
+                hujanBunga();
             }
         }
     };
 
-    // 2. Biar amplopnya muncul (gak hitam)
-    document.addEventListener('DOMContentLoaded', function() {
-        const welcome = document.getElementById('welcome');
-        if (welcome) {
-            welcome.style.opacity = '1';
-            welcome.style.display = 'flex';
-            welcome.style.visibility = 'visible';
-        }
-    });
-</script>
-    <script>
-    // 1. Matikan loading yang nyangkut (Sesuai poin dokumentasi)
-    window.onload = function() {
-        const loader = document.getElementById('loading');
-        if(loader) loader.style.display = 'none';
-        const welcome = document.getElementById('welcome');
-        if(welcome) {
-            welcome.style.opacity = '1';
-            welcome.style.display = 'flex';
-        }
-    };
-
-    // 2. Fungsi buka undangan manual
-    window.undangan = {
-        guest: {
-            open: function(btn) {
-                const welcome = document.getElementById('welcome');
-                const root = document.getElementById('root');
-                
-                // Musik
-                const audioPath = document.body.getAttribute('data-audio');
-                const audio = new Audio(audioPath);
-                audio.loop = true;
-                audio.play();
-
-                // Efek Kertas (Confetti)
-                if (typeof confetti !== 'undefined') {
-                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
-                }
-
-                if (welcome) welcome.style.display = 'none';
-                if (root) {
-                    root.classList.remove('opacity-0');
-                    root.style.opacity = '1';
-                }
-            }
-        }
-    };
-</script>
-    <script>
-    // FUNGSI HUJAN BUNGA PINK (SAKURA) TERUS-MENERUS
-    var duration = 15 * 1000; // Ini durasi hujannya
-    var animationEnd = Date.now() + duration;
-    var skew = 1;
-
-    function randomInRange(min, max) {
-        return Math.random() * (max - min) + min;
+    // 3. FUNGSI HUJAN BUNGA PINK (SAKURA)
+    function hujanBunga() {
+        var end = Date.now() + (999 * 1000);
+        (function frame() {
+            confetti({
+                particleCount: 1,
+                startVelocity: 0,
+                origin: { x: Math.random(), y: -0.1 },
+                colors: ['#ff69b4', '#ffb6c1'],
+                gravity: 0.5,
+                scalar: 0.8,
+                drift: Math.random() * 0.4 - 0.2
+            });
+            if (Date.now() < end) { requestAnimationFrame(frame); }
+        }());
     }
-
-    (function frame() {
-        var timeLeft = animationEnd - Date.now();
-        var ticks = Math.max(200, 500 * (timeLeft / duration));
-        skew = Math.max(0.8, skew - 0.001);
-
-        confetti({
-            particleCount: 1,
-            startVelocity: 0,
-            ticks: ticks,
-            origin: {
-                x: Math.random(),
-                y: (Math.random() * skew) - 0.2
-            },
-            colors: ['#ff69b4', '#ffb6c1', '#ffd1dc'], // Warna pink bunga
-            shapes: ['circle'],
-            gravity: randomInRange(0.4, 0.6),
-            scalar: randomInRange(0.4, 1),
-            drift: randomInRange(-0.4, 0.4)
-        });
-
-        // Biar hujannya gak berhenti (loop terus)
-        if (timeLeft > 0) {
-            requestAnimationFrame(frame);
-        } else {
-            animationEnd = Date.now() + duration;
-            requestAnimationFrame(frame);
-        }
-    }());
 </script>
 
+    
 </body>
 
 </html>
