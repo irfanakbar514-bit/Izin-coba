@@ -67,6 +67,37 @@
     <!-- Dependencies JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha256-5P1JGBOIxI7FBAvT/mb1fCnI5n/NhQKzNUuW7Hq0fMc=" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <style>
+        /* INI BIAR WARNANYA GAK PUTIH POLOS */
+        :root, [data-bs-theme=light] {
+            --bs-body-bg: #1a1a1a !important;
+            --bs-body-color: #ffffff !important;
+        }
+        
+        body {
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+        }
+
+        .bg-white-black, .bg-light-dark, .loading-page {
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+        }
+
+        /* BIAR TULISAN GAK TRANSPARAN (HILANGIN PUTIHNYA) */
+        .opacity-0 {
+            opacity: 1 !important;
+        }
+
+        #root {
+            opacity: 1 !important;
+            display: block !important;
+        }
+
+        .font-esthetic {
+            color: #d4af37 !important; /* Warna emas buat nama Irfan & Via */
+        }
+    </style>
 
 </head>
 
