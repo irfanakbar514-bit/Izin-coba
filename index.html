@@ -766,6 +766,45 @@
         }
     });
 </script>
+    <script>
+    // 1. Matikan loading yang nyangkut (Sesuai poin dokumentasi)
+    window.onload = function() {
+        const loader = document.getElementById('loading');
+        if(loader) loader.style.display = 'none';
+        const welcome = document.getElementById('welcome');
+        if(welcome) {
+            welcome.style.opacity = '1';
+            welcome.style.display = 'flex';
+        }
+    };
+
+    // 2. Fungsi buka undangan manual
+    window.undangan = {
+        guest: {
+            open: function(btn) {
+                const welcome = document.getElementById('welcome');
+                const root = document.getElementById('root');
+                
+                // Musik
+                const audioPath = document.body.getAttribute('data-audio');
+                const audio = new Audio(audioPath);
+                audio.loop = true;
+                audio.play();
+
+                // Efek Kertas (Confetti)
+                if (typeof confetti !== 'undefined') {
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
+                }
+
+                if (welcome) welcome.style.display = 'none';
+                if (root) {
+                    root.classList.remove('opacity-0');
+                    root.style.opacity = '1';
+                }
+            }
+        }
+    };
+</script>
 
 </body>
 
