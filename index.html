@@ -726,6 +726,46 @@
             </div>
         </div>
     </div>
+    <script>
+    // 1. Biar tombol "Open Invitation" hidup lagi
+    window.undangan = {
+        guest: {
+            open: function(btn) {
+                const welcome = document.getElementById('welcome');
+                const root = document.getElementById('root');
+                
+                // Musik Main
+                const audioPath = document.body.getAttribute('data-audio');
+                const audio = new Audio(audioPath);
+                audio.loop = true;
+                audio.play().catch(e => console.log("Musik aktif"));
+
+                // Efek Kertas (Confetti) kalau pelurunya ada
+                if (typeof confetti !== 'undefined') {
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, zIndex: 2000 });
+                }
+
+                // Layar Buka
+                if (welcome) welcome.style.display = 'none';
+                if (root) {
+                    root.classList.remove('opacity-0');
+                    root.style.opacity = '1';
+                }
+            }
+        }
+    };
+
+    // 2. Biar amplopnya muncul (gak hitam)
+    document.addEventListener('DOMContentLoaded', function() {
+        const welcome = document.getElementById('welcome');
+        if (welcome) {
+            welcome.style.opacity = '1';
+            welcome.style.display = 'flex';
+            welcome.style.visibility = 'visible';
+        }
+    });
+</script>
+
 </body>
 
 </html>
